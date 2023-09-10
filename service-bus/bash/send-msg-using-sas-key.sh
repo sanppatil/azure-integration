@@ -1,9 +1,9 @@
-#Script Name - send-msg-2-entity.sh
+# Script Name: send-msg-using-sas-key.sh
 
-RESOURCE_URI=$1
-SHARED_ACCESS_KEY_NAME=$2
-SHARED_ACCESS_KEY=$3
-ENTITY_NAME=$4
+RESOURCE_URI=https://EnterNamespaceName.servicebus.windows.net/
+SHARED_ACCESS_KEY_NAME=EnterSASKeyName
+SHARED_ACCESS_KEY=EnterSASKeyValue
+ENTITY_NAME=EnterTopicName
 
 get_sas_token() {
     local EXPIRY=${EXPIRY:=$((60 * 60 * 24))} # Default token expiry is 1 day
@@ -19,7 +19,7 @@ get_sas_token() {
 }
 
 SAS_TOKEN=$(get_sas_token)
-curl --location "${RESOURCE_URI}${ENTITY_NAME}/messages" \
+curl --silent --verbose --location "${RESOURCE_URI}${ENTITY_NAME}/messages" \
 --header "Authorization: $SAS_TOKEN" \
 --header 'BrokerProperties: {"Header1":"Value1","Header2":"Value2","Header3":"Value3"}' \
 --header 'Content-Type: application/json' \
