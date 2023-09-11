@@ -1,4 +1,4 @@
-# Script Name: create-blob-using-aad-access-token.sh
+# Script Name: put-get-blob-using-aad-access-token.sh
 
 #Inputs
 TENANT_ID=EnterTenantId
