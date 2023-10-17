@@ -21,37 +21,31 @@ import java.nio.charset.StandardCharsets;
 @SpringBootApplication
 public class BlobClientApplication implements CommandLineRunner {
 
-	public static final Logger logger = LoggerFactory.getLogger(BlobClientApplication.class);
+    public static final Logger logger = LoggerFactory.getLogger(BlobClientApplication.class);
 
-	@Autowired
-	private Environment env;
-	public static void main(String[] args) {
-		SpringApplication.run(BlobClientApplication.class, args);
-	}
+    @Autowired
+    private Environment env;
 
-	@Override
-	public void run(String... args) throws Exception {
-		ClientSecretCredential clientSecretCredential = new ClientSecretCredentialBuilder()
-				.tenantId(env.getProperty("TENANT_ID"))
-				.clientId(env.getProperty("APP_CLIENT_ID"))
-				.clientSecret(env.getProperty("APP_CLIENT_SECRET"))
-				.build();
+    public static void main(String[] args) {
+        SpringApplication.run(BlobClientApplication.class, args);
+    }
 
-		BlobServiceClient storageClient = new BlobServiceClientBuilder()
-				.endpoint(env.getProperty("STORAGE_ACCOUNT_NAME"))
-				.credential(clientSecretCredential)
-				.buildClient();
+    @Override
+    public void run(String... args) throws Exception {
+        ClientSecretCredential clientSecretCredential = new ClientSecretCredentialBuilder().tenantId(env.getProperty("TENANT_ID")).clientId(env.getProperty("APP_CLIENT_ID")).clientSecret(env.getProperty("APP_CLIENT_SECRET")).build();
 
-		BlobContainerClient blobContainerClient = storageClient.getBlobContainerClient("ix-cont");
+        BlobServiceClient storageClient = new BlobServiceClientBuilder().endpoint(env.getProperty("STORAGE_ACCOUNT_NAME")).credential(clientSecretCredential).buildClient();
 
-		BlockBlobClient blobClient = blobContainerClient.getBlobClient("HelloWorld.txt").getBlockBlobClient();
+        BlobContainerClient blobContainerClient = storageClient.getBlobContainerClient("test-cont");
 
-		String data = "Hello world!";
-		InputStream dataStream = new ByteArrayInputStream(data.getBytes(StandardCharsets.UTF_8));
+        BlockBlobClient blobClient = blobContainerClient.getBlobClient("HelloWorld.txt").getBlockBlobClient();
 
-		blobClient.upload(dataStream, data.length(), true);
-		logger.info("Blob uploaded successfully.");
-		dataStream.close();
-	}
+        String data = "Hello world!";
+        InputStream dataStream = new ByteArrayInputStream(data.getBytes(StandardCharsets.UTF_8));
+
+        blobClient.upload(dataStream, data.length(), true);
+        logger.info("Blob uploaded successfully.");
+        dataStream.close();
+    }
 
 }
