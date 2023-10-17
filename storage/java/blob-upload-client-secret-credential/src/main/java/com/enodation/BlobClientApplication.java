@@ -32,18 +32,19 @@ public class BlobClientApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        ClientSecretCredential clientSecretCredential = new ClientSecretCredentialBuilder()
-				.tenantId(env.getProperty("TENANT_ID"))
-				.clientId(env.getProperty("APP_CLIENT_ID"))
-				.clientSecret(env.getProperty("APP_CLIENT_SECRET")).build();
+        ClientSecretCredential clientSecretCredential = new ClientSecretCredentialBuilder().tenantId(env.getProperty("TENANT_ID"))
+                                                                                           .clientId(env.getProperty("APP_CLIENT_ID"))
+                                                                                           .clientSecret(env.getProperty("APP_CLIENT_SECRET"))
+                                                                                           .build();
 
-        BlobServiceClient storageClient = new BlobServiceClientBuilder()
-				.endpoint(env.getProperty("STORAGE_ACCOUNT_NAME"))
-				.credential(clientSecretCredential).buildClient();
+        BlobServiceClient storageClient = new BlobServiceClientBuilder().endpoint(env.getProperty("STORAGE_ACCOUNT_NAME"))
+                                                                        .credential(clientSecretCredential)
+                                                                        .buildClient();
 
         BlobContainerClient blobContainerClient = storageClient.getBlobContainerClient("test-cont");
 
-        BlockBlobClient blobClient = blobContainerClient.getBlobClient("HelloWorld.txt").getBlockBlobClient();
+        BlockBlobClient blobClient = blobContainerClient.getBlobClient("HelloWorld.txt")
+                                                        .getBlockBlobClient();
 
         String data = "Hello world!";
         InputStream dataStream = new ByteArrayInputStream(data.getBytes(StandardCharsets.UTF_8));
