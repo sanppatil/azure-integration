@@ -46,7 +46,7 @@ public class CosmosClientApplication implements CommandLineRunner {
         String id = newPerson.getId();
         String partitionKey = newPerson.getPartition_key();
 
-        container.upsertItem(newPerson, new PartitionKey(newPerson.getPartition_key()), new CosmosItemRequestOptions());
+        container.upsertItem(newPerson, new PartitionKey(partitionKey), new CosmosItemRequestOptions());
         logger.info("New document is upserted...");
 
         Person newPersonFromDB = container.readItem(id, new PartitionKey(partitionKey), Person.class)
@@ -67,7 +67,7 @@ public class CosmosClientApplication implements CommandLineRunner {
         cosmosPatchOperations.set("/MailingAddress", newAddress);
 
         CosmosPatchItemRequestOptions options = new CosmosPatchItemRequestOptions();
-        CosmosItemResponse<Person> response = container.patchItem(newPerson.getId(), new PartitionKey(newPerson.getPartition_key()),
+        CosmosItemResponse<Person> response = container.patchItem(id, new PartitionKey(partitionKey),
                 cosmosPatchOperations, options, Person.class);
 
         logger.info("Item with ID {} has been patched", response.getItem()
