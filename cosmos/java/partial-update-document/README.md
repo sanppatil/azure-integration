@@ -16,5 +16,5 @@ mvn clean package
 
 ### 2. Run application
 ```bash
-mvn compile exec:java -Dexec.mainClass="com.enodation.CosmosClientApplication"
+java -jar target/partial-update-document-1.0.jar
 ```
