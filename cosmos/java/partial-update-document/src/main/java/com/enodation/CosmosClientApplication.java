@@ -5,8 +5,7 @@ import com.azure.cosmos.models.*;
 import com.enodation.model.Address;
 import com.enodation.model.Person;
 import com.nimbusds.jose.shaded.gson.Gson;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,9 +13,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.core.env.Environment;
 
 @SpringBootApplication
+@Slf4j
 public class CosmosClientApplication implements CommandLineRunner {
-
-    public static final Logger logger = LoggerFactory.getLogger(CosmosClientApplication.class);
 
     @Autowired
     private Environment env;
@@ -47,11 +45,11 @@ public class CosmosClientApplication implements CommandLineRunner {
         String partitionKey = newPerson.getPartition_key();
 
         container.upsertItem(newPerson, new PartitionKey(partitionKey), new CosmosItemRequestOptions());
-        logger.info("New document is upserted...");
+        log.info("New document is upserted...");
 
         Person newPersonFromDB = container.readItem(id, new PartitionKey(partitionKey), Person.class)
                                        .getItem();
-        logger.info("Existing document from database - " + gson.toJson(newPersonFromDB));
+        log.info("Existing document from database - " + gson.toJson(newPersonFromDB));
 
         //Replace Address for person with newer one, Note - document Id and Partition Key remains same!
 
@@ -70,12 +68,12 @@ public class CosmosClientApplication implements CommandLineRunner {
         CosmosItemResponse<Person> response = container.patchItem(id, new PartitionKey(partitionKey),
                 cosmosPatchOperations, options, Person.class);
 
-        logger.info("Item with ID {} has been patched", response.getItem()
+        log.info("Item with ID {} has been patched", response.getItem()
                                                                 .getId());
 
         Person patchedPersonFromDB = container.readItem(id, new PartitionKey(partitionKey), Person.class)
                                        .getItem();
-        logger.info("Patched document from database - " + gson.toJson(patchedPersonFromDB));
+        log.info("Patched document from database - " + gson.toJson(patchedPersonFromDB));
 
         cosmosClient.close();
     }
