@@ -1,0 +1,13 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "xxx",
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "AzureWebJobsFeatureFlags": "EnableWorkerIndexing",
+    "SOURCE_STORAGE_ACCOUNT_CONNECTION": "xxx",
+    "SOURCE_CONTAINER_NAME": "source-cont",
+    "TARGET_STORAGE_ACCOUNT_CONNECTION": "xxx",
+    "TARGET_CONTAINER_NAME": "target-cont"
+  }
+}
+

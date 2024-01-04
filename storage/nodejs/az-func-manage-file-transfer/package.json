@@ -1,0 +1,14 @@
+{
+  "name": "az-func-manage-file-transfer",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "func start",
+    "test": "echo \"No tests yet...\""
+  },
+  "dependencies": {
+    "@azure/functions": "^4.0.0",
+    "@azure/storage-blob": "^12.17.0"
+  },
+  "main": "src/functions/*.js"
+}
