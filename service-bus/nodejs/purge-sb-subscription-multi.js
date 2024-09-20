@@ -1,5 +1,11 @@
 
 /**
+ * 
+ * @summary Remove a predetermined number of messages from list of subscription
+ * 
+ */
+
+/**
  * @summary Execute below commands to avoid certificate errors related "Error: self-signed certificate in certificate chain" / "SELF_SIGNED_CERT_IN_CHAIN"
  * 
  * $ echo quit | openssl s_client -showcerts -servername server-name.servicebus.windows.net -connect server-name.servicebus.windows.net:443 > ~/cert/server-name-servicebus-ca-certificate.pem

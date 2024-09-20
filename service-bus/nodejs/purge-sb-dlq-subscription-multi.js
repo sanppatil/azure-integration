@@ -1,3 +1,8 @@
+/**
+ * 
+ * @summary Remove a predetermined number of dead-letter messages from list of subscription
+ * 
+ */
 
 /**
  * @summary Execute below commands to avoid certificate errors related "Error: self-signed certificate in certificate chain" / "SELF_SIGNED_CERT_IN_CHAIN"

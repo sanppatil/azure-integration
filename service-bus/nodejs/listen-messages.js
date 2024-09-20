@@ -1,3 +1,8 @@
+/**
+ * 
+ * @summary Listen a predetermined number of messages from specific of subscription
+ * 
+ */
 
 /**
  * @summary Execute below commands to avoid certificate errors related "Error: self-signed certificate in certificate chain" / "SELF_SIGNED_CERT_IN_CHAIN"
