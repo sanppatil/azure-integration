@@ -1,0 +1,5 @@
+# Ignore target directory (Maven output)
+/target/
+
+# Ignore environment file
+.env
